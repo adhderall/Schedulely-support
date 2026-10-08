@@ -122,6 +122,67 @@ function App() {
           })}
         </div>
       </section>
+
+      <section id="contact" className="contact">
+        <div className="contact-top">
+          <div className="contact-heading">
+            <h2>Contact Support</h2>
+            <p>
+              Have feedback or experiencing an issue? Please contact
+              us with the information below.
+            </p>
+          </div>
+
+          <a
+            className="contact-button"
+            href={`mailto:jayparkitrighthere99@gmail.com?subject=${encodeURIComponent(
+              'Schedulely Support'
+            )}&body=${encodeURIComponent(
+              'Device & iOS Version:\n\nApp Version:\n\nIssue Screenshot: Please attach if applicable.\n\nDetailed Description:\n\n'
+            )}`}
+          >
+            Send an Email
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div className="contact-details">
+          <div className="contact-detail">
+            <span className="contact-number" aria-hidden="true">
+              01
+            </span>
+            <h3>Device & iOS Version</h3>
+            <p>Include your device model and iOS version.</p>
+          </div>
+
+          <div className="contact-detail">
+            <span className="contact-number" aria-hidden="true">
+              02
+            </span>
+            <h3>App Version</h3>
+            <p>Include your App version.</p>
+          </div>
+
+          <div className="contact-detail">
+            <span className="contact-number" aria-hidden="true">
+              03
+            </span>
+            <h3>Issue Screenshot</h3>
+            <p>Attach a screenshot showing the issue, if possible.</p>
+          </div>
+
+          <div className="contact-detail">
+            <span className="contact-number" aria-hidden="true">
+              04
+            </span>
+            <h3>Detailed Description</h3>
+            <p>
+              Describe your feedback or issue or how we can
+              reproduce it, if applicable.
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
   )
