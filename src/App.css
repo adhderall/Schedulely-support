@@ -440,3 +440,140 @@ section[id] {
       transform: none;
     }
 }
+
+/* Footer */
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  
+    padding: 28px 24px;
+    border-top: 1px solid #ffffff12;
+  
+    color: #a8afc5;
+    font-size: 14px;
+    line-height: 1.5;
+}
+  
+.footer p {
+    margin: 0;
+}
+  
+.footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+  
+.footer a {
+    transition: color 200ms ease;
+}
+  
+.footer a:hover {
+    color: #b19aff;
+}
+  
+  /* Legal pages */
+  
+.legal-page {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 48px 24px 72px;
+}
+  
+.legal-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  
+    color: #b19aff;
+    font-size: 14px;
+    line-height: 1.5;
+}
+  
+.legal-back:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+  
+.legal-page h1 {
+    margin: 28px 0 40px;
+  
+    color: #f5f5fa;
+    font-size: clamp(32px, 6vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+}
+  
+.legal-section + .legal-section {
+    margin-top: 32px;
+}
+  
+.legal-section h2 {
+    margin: 0 0 12px;
+  
+    color: #f5f5fa;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+}
+  
+.legal-section p {
+    margin: 0 0 12px;
+  
+    color: #a8afc5;
+    font-size: 15px;
+    line-height: 1.8;
+}
+  
+.legal-section a {
+    color: #b19aff;
+    font-size: 15px;
+    line-height: 1.8;
+  
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+  
+.legal-section a:hover {
+    color: #d2c5ff;
+}
+  
+@media (max-width: 600px) {
+    .header {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    
+    .footer {
+        padding: 24px 20px;
+    }
+    
+    .footer nav {
+        gap: 20px;
+    }
+    
+    .legal-page {
+        padding: 36px 20px 56px;
+    }
+    
+    .legal-page h1 {
+        margin-bottom: 32px;
+    }
+    
+    .legal-section h2 {
+        font-size: 18px;
+    }
+}
+  
+@media (prefers-reduced-motion: reduce) {
+    .footer a {
+        transition: none;
+    }
+}

@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Footer from './Footer'
+import LegalPage from './LegalPage'
+import { privacyPolicy, termsOfUse } from './legalContent'
 import './App.css'
 
 const faqs = [
@@ -28,6 +31,37 @@ const faqs = [
 function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
+  const [hash, setHash] = useState(() => window.location.hash)
+
+  const legalDocument =
+    hash === '#/privacy-policy'
+      ? privacyPolicy
+      : hash === '#/terms-of-use'
+        ? termsOfUse
+        : null
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setHash(window.location.hash)
+    }
+
+    window.addEventListener('hashchange', handleHashChange)
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (legalDocument) return
+
+    const sectionId = hash.slice(1)
+
+    if (['home', 'faq', 'contact'].includes(sectionId)) {
+      document.getElementById(sectionId)?.scrollIntoView()
+    }
+  }, [hash, legalDocument])
+
   return (
   <div className="support-page">
     <header className="header">
@@ -44,146 +78,154 @@ function App() {
     </header>
 
     <main>
-      <section id="home" className="hero">
-        <h1>
-          Schedulely
-          <br />
-          <span>Support</span>
-        </h1>
+    {legalDocument ? (
+      <LegalPage document={legalDocument} />
+    ) : (
+      <>
+        <section id="home" className="hero">
+          <h1>
+            Schedulely
+            <br />
+            <span>Support</span>
+          </h1>
 
-        <p>
-          We're here to help you make the most of Schedulely.
-        </p>
-      </section>
-      <section id="faq" className="faq">
-        <h2>Frequently Asked Questions</h2>
+          <p>
+            We're here to help you make the most of Schedulely.
+          </p>
+        </section>
+        <section id="faq" className="faq">
+          <h2>Frequently Asked Questions</h2>
 
-        <p className="faq-description">
-          Find quick answers to common questions.
-        </p>
+          <p className="faq-description">
+            Find quick answers to common questions.
+          </p>
 
-        <div className="faq-list">
-          {faqs.map((faq, index) => {
-            const isOpen = openFaq === index
+          <div className="faq-list">
+            {faqs.map((faq, index) => {
+              const isOpen = openFaq === index
 
-            return (
-              <div
-                key={faq.question}
-                className={`faq-item${isOpen ? ' is-open' : ''}`}
-              >
-                <h3 className="faq-question">
-                  <button
-                    id={`faq-question-${index}`}
-                    type="button"
-                    className="faq-trigger"
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-answer-${index}`}
-                    onClick={() => {
-                      setOpenFaq((current) =>
-                        current === index ? null : index
-                      )
-                    }}
-                  >
-                    <span>{faq.question}</span>
-
-                    <svg
-                      className="faq-arrow"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </h3>
-
+              return (
                 <div
-                  id={`faq-answer-${index}`}
-                  className="faq-answer"
-                  role="region"
-                  aria-labelledby={`faq-question-${index}`}
-                  aria-hidden={!isOpen}
-                  inert={!isOpen}
+                  key={faq.question}
+                  className={`faq-item${isOpen ? ' is-open' : ''}`}
                 >
-                  <div className="faq-answer-inner">
-                    <p>{faq.answer}</p>
+                  <h3 className="faq-question">
+                    <button
+                      id={`faq-question-${index}`}
+                      type="button"
+                      className="faq-trigger"
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${index}`}
+                      onClick={() => {
+                        setOpenFaq((current) =>
+                          current === index ? null : index
+                        )
+                      }}
+                    >
+                      <span>{faq.question}</span>
+
+                      <svg
+                        className="faq-arrow"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="m6 9 6 6 6-6"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </h3>
+
+                  <div
+                    id={`faq-answer-${index}`}
+                    className="faq-answer"
+                    role="region"
+                    aria-labelledby={`faq-question-${index}`}
+                    aria-hidden={!isOpen}
+                    inert={!isOpen}
+                  >
+                    <div className="faq-answer-inner">
+                      <p>{faq.answer}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
-      </section>
+              )
+            })}
+          </div>
+        </section>
 
-      <section id="contact" className="contact">
-        <div className="contact-top">
-          <div className="contact-heading">
-            <h2>Contact Support</h2>
-            <p>
-              Have feedback or experiencing an issue? Please contact
-              us with the information below.
-            </p>
+        <section id="contact" className="contact">
+          <div className="contact-top">
+            <div className="contact-heading">
+              <h2>Contact Support</h2>
+              <p>
+                Have feedback or experiencing an issue? Please contact
+                us with the information below.
+              </p>
+            </div>
+
+            <a
+              className="contact-button"
+              href={`mailto:jayparkitrighthere99@gmail.com?subject=${encodeURIComponent(
+                'Schedulely Support'
+              )}&body=${encodeURIComponent(
+                'Device & iOS Version:\n\nApp Version:\n\nIssue Screenshot: Please attach if applicable.\n\nDetailed Description:\n\n'
+              )}`}
+            >
+              Send an Email
+              <span aria-hidden="true">↗</span>
+            </a>
           </div>
 
-          <a
-            className="contact-button"
-            href={`mailto:jayparkitrighthere99@gmail.com?subject=${encodeURIComponent(
-              'Schedulely Support'
-            )}&body=${encodeURIComponent(
-              'Device & iOS Version:\n\nApp Version:\n\nIssue Screenshot: Please attach if applicable.\n\nDetailed Description:\n\n'
-            )}`}
-          >
-            Send an Email
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
+          <div className="contact-details">
+            <div className="contact-detail">
+              <span className="contact-number" aria-hidden="true">
+                01
+              </span>
+              <h3>Device & iOS Version</h3>
+              <p>Include your device model and iOS version.</p>
+            </div>
 
-        <div className="contact-details">
-          <div className="contact-detail">
-            <span className="contact-number" aria-hidden="true">
-              01
-            </span>
-            <h3>Device & iOS Version</h3>
-            <p>Include your device model and iOS version.</p>
-          </div>
+            <div className="contact-detail">
+              <span className="contact-number" aria-hidden="true">
+                02
+              </span>
+              <h3>App Version</h3>
+              <p>Include your App version.</p>
+            </div>
 
-          <div className="contact-detail">
-            <span className="contact-number" aria-hidden="true">
-              02
-            </span>
-            <h3>App Version</h3>
-            <p>Include your App version.</p>
-          </div>
+            <div className="contact-detail">
+              <span className="contact-number" aria-hidden="true">
+                03
+              </span>
+              <h3>Issue Screenshot</h3>
+              <p>Attach a screenshot showing the issue, if possible.</p>
+            </div>
 
-          <div className="contact-detail">
-            <span className="contact-number" aria-hidden="true">
-              03
-            </span>
-            <h3>Issue Screenshot</h3>
-            <p>Attach a screenshot showing the issue, if possible.</p>
+            <div className="contact-detail">
+              <span className="contact-number" aria-hidden="true">
+                04
+              </span>
+              <h3>Detailed Description</h3>
+              <p>
+                Describe your feedback or issue or how we can
+                reproduce it, if applicable.
+              </p>
+            </div>
           </div>
-
-          <div className="contact-detail">
-            <span className="contact-number" aria-hidden="true">
-              04
-            </span>
-            <h3>Detailed Description</h3>
-            <p>
-              Describe your feedback or issue or how we can
-              reproduce it, if applicable.
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
+      </>
+    )}
     </main>
+
+    <Footer />
   </div>
   )
 }
