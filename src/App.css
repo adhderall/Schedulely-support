@@ -14,9 +14,20 @@
 }
 
 .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -1px;
+}
+
+.brand img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    flex-shrink: 0;
 }
 
 .header nav {
@@ -100,5 +111,98 @@
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
+    }
+}
+
+.faq {
+    margin: 0 auto;
+    padding: 48px 24px;
+    scroll-margin-top: 24px;
+}
+
+.faq h2 {
+    margin: 0;
+    font-size: clamp(26px, 4vw, 32px);
+    letter-spacing: -1px;
+}
+
+.faq-description {
+    margin: 10px 0 28px;
+    color: #a8afc5;
+    font-size: 17px;
+    line-height: 1;
+}
+
+.faq-list {
+    display: grid;
+    gap: 10px;
+}
+
+.faq-item {
+    overflow: hidden;
+    background: #121620;
+    border: 1px solid #292e3d;
+    border-radius: 14px;
+}
+
+.faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 24px;
+    list-style: none;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-right: 2px solid #a8afc5;
+    border-bottom: 2px solid #a8afc5;
+    transform: rotate(45deg);
+}
+
+.faq-item[open] summary::after {
+    transform: rotate(225deg);
+}
+
+.faq-item summary:hover {
+    background: #1b1e2d;
+}
+
+.faq-item summary:focus-visible {
+    outline: 2px solid #a594ff;
+    outline-offset: -4px;
+    border-radius: 12px;
+}
+
+.faq-item p {
+    margin: 0;
+    padding: 24px;
+    color: #a8afc5;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+@media (max-width: 600px) {
+    .faq {
+      padding: 36px 20px;
+    }
+
+    .faq-item summary {
+        padding: 18px;
+    }
+
+    .faq-item p {
+        padding: 18px;
     }
 }
