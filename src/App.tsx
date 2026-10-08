@@ -65,8 +65,8 @@ function App() {
   return (
   <div className="support-page">
     <header className="header">
-      <a className="brand" href="/">
-        <img src="/app-icon.png" alt="" width={40} height={40} />
+      <a className="brand" href={import.meta.env.BASE_URL}>
+        <img src={`${import.meta.env.BASE_URL}app-icon.png`} alt="" width={40} height={40} />
         <span>Schedulely Support</span>
       </a>
 
